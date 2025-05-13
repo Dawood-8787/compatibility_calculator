@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= user %>'s Quiz</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="container">
+    <img src="/nust-logo.png" alt="NUST Logo" class="logo">
+    <h2><%= user %>, Now it's Your Turn to Answer:</h2>
+    <form action="/result" method="POST">
+      <% questions.forEach((q, i) => { %>
+        <div class="question">
+          <label><%= q %></label>
+          <select name="q<%= i %>" required>
+            <% options[i].forEach((opt, j) => { %>
+              <option value="<%= weights[i][j] %>"><%= opt %></option>
+            <% }) %>
+          </select>
+        </div>
+        <br>
+      <% }) %>
+      <button type="submit">See Compatibility Score</button>
+    </form>
+  </div>
+</body>
+</html>
