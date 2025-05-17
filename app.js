@@ -82,8 +82,10 @@ app.post('/result', (req, res) => {
     user2_scores[i] = parseInt(req.body["q" + i]);
     totalDifference += Math.abs(user1Data.scores[i] - user2_scores[i]);
   }
-  const compatibilityScore = 100 - Math.floor((totalDifference * 100) / (questions.length * 30));
-  let message = compatibilityScore >= 80 ? "You both are highly compatible!" :
+  let rawScore = 100 - Math.floor((totalDifference * 100) / (questions.length * 30));
+let compatibilityScore = Math.round((rawScore + 20) * 0.85);
+if (compatibilityScore > 98) compatibilityScore = 98;
+  let message = compatibilityScore >= 85 ? "You both are highly compatible!" :
                 compatibilityScore >= 60 ? "There's a decent connection!" :
                 "You might be a bit different.";
   res.render('result', {
